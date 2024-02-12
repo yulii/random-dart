@@ -1,0 +1,18 @@
+version: "3.8"
+services:
+  app:
+    build:
+      context: .
+      args:
+        - FLUTTER_VERSION=${FLUTTER_VERSION}
+    container_name: app
+    working_dir: /app
+    command: "fvm flutter run -d web-server --release --web-port 3000 --web-hostname 0.0.0.0"
+    env_file:
+      - .env
+    volumes:
+      - ./app:/app
+    ports:
+      - 3000:3000
+    tty: true
+    stdin_open: true
