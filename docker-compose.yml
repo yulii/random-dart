@@ -12,7 +12,12 @@ services:
       - .env
     volumes:
       - ./app:/app
+      - fvm:/root/fvm
     ports:
       - 3000:3000
     tty: true
     stdin_open: true
+
+volumes:
+  fvm:
+    driver: local

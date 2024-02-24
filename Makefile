@@ -7,6 +7,9 @@ help:
 build:  ## Build docker images
 	docker-compose build
 
+test:
+	docker-compose run app bash -c "fvm flutter test"
+
 run:  ## Start up applications
 	docker-compose up
 
@@ -14,10 +17,11 @@ clean:  ## Remove all images and volumes
 	docker-compose down --rmi all --volumes
 
 setup: build
-
-create:
 	docker-compose run app bash -c "fvm use --force $(FLUTTER_VERSION)"
 	docker-compose run app bash -c "fvm flutter config --enable-web --enable-android --enable-ios"
+	docker-compose run app bash -c "fvm flutter doctor -v"
+
+create:
 	docker-compose run app bash -c "fvm flutter create ."
 	docker-compose run app bash -c "fvm flutter clean"
 
